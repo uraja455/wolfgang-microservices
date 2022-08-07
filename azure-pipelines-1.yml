@@ -11,6 +11,7 @@ pool:
   
 variables:
   ImageName: 'umakanth455/customerapi:$(Build.BuildId)'
+  tag: '$(Build.BuildId)'
 
 stages:
   - stage: Build
@@ -23,7 +24,7 @@ stages:
         - task: Docker@2
           inputs:
             containerRegistry: 'DockerSVC'
-            repository: 'umakanth455/customerapi'
+            repository: 'customerapi'
             command: 'buildAndPush'
             Dockerfile: '**/CustomerApi/CustomerApi/Dockerfile'
             buildContext: 'CustomerApi'
