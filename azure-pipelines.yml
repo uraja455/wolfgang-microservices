@@ -8,10 +8,12 @@ trigger:
       - CustomerApi/*
  
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
  
 variables:
   buildConfiguration: 'Release'
+  dotNetFramework: 'net6.0'
+  dotNetVersion: '6.0.x'
  
 steps:
 - task: DotNetCoreCLI@2
