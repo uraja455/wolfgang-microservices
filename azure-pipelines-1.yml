@@ -28,6 +28,28 @@ stages:
             command: 'buildAndPush'
             Dockerfile: '**/CustomerApi/CustomerApi/Dockerfile'
             buildContext: 'CustomerApi'
+            arguments: '--build-arg BuildId=$(Build.BuildId)'
             tags: |
               $(tag)
+
+        - pwsh: |
+            $id=docker images --filter "label=test=$(Build.BuildId)" -q | Select-Object -First 1
+            docker create --name testcontainer $id
+            docker cp testcontainer:/testresults ./testresults
+            docker rm testcontainer
+          displayName: 'Copy test results'
+ 
+        - task: PublishTestResults@2
+          inputs:
+            testResultsFormat: 'VSTest'
+            testResultsFiles: '**/*.trx'
+            searchFolder: '$(System.DefaultWorkingDirectory)/testresults'
+          displayName: 'Publish test results'
+ 
+        - task: PublishCodeCoverageResults@1
+          inputs:
+            codeCoverageTool: 'Cobertura'
+            summaryFileLocation: '$(System.DefaultWorkingDirectory)/testresults/coverage/coverage.cobertura.xml'
+            reportDirectory: '$(System.DefaultWorkingDirectory)/testresults/coverage/reports'
+          displayName: 'Publish code coverage results'
   
