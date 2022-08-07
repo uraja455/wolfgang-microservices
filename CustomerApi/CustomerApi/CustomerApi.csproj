@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>$(DefaultTargetFramework</TargetFramework>
+    <TargetFramework>$(DefaultTargetFramework)</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <UserSecretsId>d9aedf8e-7b4a-424a-ad72-94bd39c6dc89</UserSecretsId>
   </PropertyGroup>
