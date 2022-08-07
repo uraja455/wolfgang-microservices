@@ -34,6 +34,7 @@ stages:
 
         - pwsh: |
             $id=docker images --filter "label=test=$(Build.BuildId)" -q | Select-Object -First 1
+            Write-Host "id: $id"
             docker create --name testcontainer $id
             docker cp testcontainer:/testresults ./testresults
             docker rm testcontainer
