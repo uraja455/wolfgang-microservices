@@ -36,7 +36,8 @@ stages:
             $id=docker images --filter "label=test=$(Build.BuildId)" -q | Select-Object -First 1
             Write-Host "id: $id"
             echo "id: $id"
-            echo "docker images"
+            $images = docker images
+            echo "docker images: $images"
             docker create --name testcontainer $id
             docker cp testcontainer:/testresults ./testresults
             docker rm testcontainer
