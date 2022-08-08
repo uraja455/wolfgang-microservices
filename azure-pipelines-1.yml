@@ -23,12 +23,13 @@ stages:
         
         - task: Docker@2
           inputs:
+            arguments: '--build-arg BuildId=$(Build.BuildId)'
             containerRegistry: 'DockerSVC'
             repository: 'umakanth455/customerapi'
             command: 'buildAndPush'
             Dockerfile: '**/CustomerApi/CustomerApi/Dockerfile'
             buildContext: 'CustomerApi'
-            arguments: '--build-arg BuildId=$(Build.BuildId)'
+            
             tags: |
               $(tag)
 
